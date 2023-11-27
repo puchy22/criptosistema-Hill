@@ -1,5 +1,11 @@
 import unittest
-from ..src.mensaje import Mensaje
+import sys
+import os
+
+# Añadir al path la ruta del proyecto
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from src.mensaje import Mensaje
 
 
 class TestMensaje(unittest.TestCase):
