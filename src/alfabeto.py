@@ -1,3 +1,6 @@
+"""Clase que contiene el alfabeto a usar"""
+
+
 class Alfabeto:
     def __init__(self):
         self.alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
