@@ -28,15 +28,23 @@ class Hill:
     """
 
     def hill(self, mensaje: Mensaje, cifrar: bool) -> str:
-        mensaje_str = str(mensaje)
+        mensaje_corregido = str(mensaje)
+
+        # Mientras que el mensaje no tenga el tamaño correcto
+        while (len(mensaje) % self._clave[0]) != 0:
+            mensaje_corregido += "W"
 
         if cifrar:
-            return self.__traducir(mensaje_str, self._clave[1])
+            return self.__traducir(mensaje_corregido, self._clave[1])
         else:
-            return self.__traducir(mensaje_str, self._clave[1].inverse())
+            return self.__traducir(mensaje_corregido, self._clave[1].inverse())
+
+    """Lógica que hace el cifrado de Hill mediante la multiplicación de matrices"""
 
     def __traducir(self, mensaje: str, matriz: matrix) -> str:
-        """Lógica que hace el cifrado de Hill mediante la multiplicación de matrices"""
+        for i in range(0, len(mensaje), self._clave[0]):
+            print(mensaje[i : i + self._clave[0]])
+
         return ""
 
     """Obtener la clave del criptosistema de Hill"""
