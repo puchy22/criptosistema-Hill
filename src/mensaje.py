@@ -7,10 +7,12 @@ class Mensaje:
     def __init__(self, mensaje: str):
         self.mensaje = self.__normalizar(mensaje)
         self.content = self.__str__()
-        self.length = len(self.content)
 
     def __str__(self):
         return self.mensaje
+
+    def __len__(self):
+        return len(self.mensaje)
 
     """Devuelve el mensaje normalizado a nuestro alfabeto"""
 
