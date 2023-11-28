@@ -19,7 +19,7 @@ class Alfabeto:
             "Ñ": "N",
         }
 
-    def get_longitud(self):
+    def __len__(self):
         return len(self.alfabeto)
 
     """Devuelve el valor númerico de una letra del alfabeto"""
