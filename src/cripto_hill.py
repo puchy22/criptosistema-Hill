@@ -1,6 +1,7 @@
 from .alfabeto import Alfabeto
 from .mensaje import Mensaje
 from sage.matrix.constructor import matrix, random_matrix
+from sage.rings.integer_ring import ZZ
 
 """Clase que representa el criptosistema de Hill"""
 
