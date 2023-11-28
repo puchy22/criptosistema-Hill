@@ -1,5 +1,6 @@
 from .alfabeto import Alfabeto
 from .mensaje import Mensaje
+from sage.matrix.constructor import matrix, random_matrix
 
 """Clase que representa el criptosistema de Hill"""
 
@@ -7,8 +8,7 @@ from .mensaje import Mensaje
 class Hill:
     def __init__(self, m: int):
         if m > 0:
-            self.m = m
-            self.t = list[list[int]]
+            self.clave = (m, random_matrix(ZZ, m, algorithm="unimodular"))
             self.__alfabeto = Alfabeto()
         else:
             raise ValueError("m debe ser mayor que 0")
@@ -23,3 +23,16 @@ class Hill:
 
     def __traducir(self, mensaje: str, matriz: list[list[int]]) -> str:
         return ""
+
+    """Obtener la clave del criptosistema de Hill"""
+
+    def get_clave(self) -> tuple[int, matrix]:
+        return self.clave
+
+    """Regenerar la clave del criptosistema de Hill"""
+
+    def regenerar_clave(self, m: int):
+        if m > 0:
+            self.clave = (m, random_matrix(ZZ, m, algorithm="unimodular"))
+        else:
+            raise ValueError("m debe ser mayor que 0")
