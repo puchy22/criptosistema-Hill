@@ -16,7 +16,7 @@ class Hill:
             # Generar una matriz aleatoria y no parar hasta que tenga inversa (matriz regular)
             T = random_matrix(self._Z, m, m)
 
-            while not T.is_invertible() and GCD(T.det(), len(alfabeto)) != 1:
+            while not T.is_invertible() or GCD(T.det(), len(alfabeto)) != 1:
                 T = random_matrix(self._Z, m, m)
 
             self._clave = (m, T)
