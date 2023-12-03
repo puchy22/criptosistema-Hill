@@ -11,7 +11,7 @@ from src.cripto_hill import Hill
 from math import gcd
 
 
-class TestMensaje(unittest.TestCase):
+class TestHill(unittest.TestCase):
     def test_clave(self):
         """Comprobar que la clave generada es correcta, es decir,
         que m es mayor que 0 y t es una matriz m x m invertible y regular en Z/len(alfabeto)Z
