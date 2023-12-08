@@ -6,6 +6,7 @@ from sage.rings.finite_rings.integer_mod_ring import IntegerModRing
 from sage.matrix.constructor import matrix
 from sage.symbolic.ring import SR, var
 from sage.symbolic.relation import solve_mod
+from sage.arith.misc import GCD
 
 
 from pprint import pprint
@@ -33,8 +34,8 @@ class ataqueHill:
         # Crear una matriz con las variables independientes
         T = matrix(SR, self._m, self._m, var_list)
 
-        # Crear una lista donde se guardarán las ecuaciones
-        ecuaciones = []
+        # Crear una matriz de m filas para almacenar las ecuaciones
+        ecuaciones = [[] for _ in range(self._m)]
 
         # Recorrer el texto plano y el texto cifrado de m en m
         for i in range(0, len(self._texto_plano), self._m):
@@ -62,17 +63,27 @@ class ataqueHill:
                     ],
                 )
 
-                # Obtener una ecuación con T * M = C
+                # Obtener una ecuación con T * M = C, devuelve m ecuaciones
                 ecuacion = T * M
 
-                # Añadir las m ecuaciones a la lista de ecuaciones convertidas a Expresiones Simbólicas
-                for j in range(self._m):
-                    ecuaciones.append(ecuacion[j, 0] == C[j, 0])
+                # Introducir las m ecuaciones en su respectiva fila de la matriz ecuaciones convertidas a Expresiones Simbólicas
+                for fila in range(self._m):
+                    ecuaciones[fila].append(ecuacion[fila, 0] == C[fila, 0])
 
-        # Resolver el sistema de ecuaciones
-        soluciones = solve_mod(ecuaciones, len(self._alfabeto))
+        # Resolver los distintos sistemas de ecuaciones
+        soluciones = []
 
-        # Crear una matriz a partir de la tupla soluciones
-        T = matrix(self._Z, self._m, self._m, soluciones[0])
+        for sistema in ecuaciones:
+            solucion = solve_mod(sistema, len(self._alfabeto))
+            # Convertir los valores de forma tupla a enteros
+            solucion = [int(valor) for valor in solucion[0]]
+            soluciones.append(solucion)
 
-        return T
+        return soluciones
+
+    def __comprobar_regularidad(self, T: matrix):
+        # Comprobar que la matriz T es regular
+        if T.is_invertible() and GCD(T.det(), len(self._alfabeto)) == 1:
+            return True
+        else:
+            return False

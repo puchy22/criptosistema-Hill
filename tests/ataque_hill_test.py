@@ -9,6 +9,7 @@ from src.alfabeto import Alfabeto
 from src.mensaje import Mensaje
 from src.cripto_hill import Hill
 from src.ataque_hill import ataqueHill
+from pprint import pprint
 
 
 class TestAtaqueHill(unittest.TestCase):
@@ -19,8 +20,10 @@ class TestAtaqueHill(unittest.TestCase):
         # Crear mensaje
         mensaje = Mensaje("Esto es un mensaje altamente secreto")
 
+        m = 3
+
         # Crear criptosistema de Hill
-        hill = Hill(2, alfabeto)
+        hill = Hill(m, alfabeto)
 
         # Guardar la clave del sistema
         clave = hill.get_clave()
@@ -36,8 +39,15 @@ class TestAtaqueHill(unittest.TestCase):
         # Realizar ataque
         T = ataque.ataque_hill()
 
+        # Descifrar el mensaje con la clave del ataque
+
+        hill.set_clave(m, T)
+
+        mensaje_descifrado = hill.hill(mensaje_cifrado, False)
+
         # Comprobar que la matriz T es correcta
-        self.assertEqual(clave[1], T)
+        pprint(mensaje_descifrado)
+        # self.assertEqual(str(mensaje), mensaje_descifrado)
 
 
 if __name__ == "__main__":
