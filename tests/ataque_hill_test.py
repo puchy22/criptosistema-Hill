@@ -20,7 +20,7 @@ class TestAtaqueHill(unittest.TestCase):
         # Crear mensaje
         mensaje = Mensaje("Esto es un mensaje altamente secreto")
 
-        m = 3
+        m = 4
 
         # Crear criptosistema de Hill
         hill = Hill(m, alfabeto)
@@ -45,9 +45,13 @@ class TestAtaqueHill(unittest.TestCase):
 
         mensaje_descifrado = hill.hill(mensaje_cifrado, False)
 
+        # Normalizar el mensaje original para que sea múltiplo de m
+        mensaje = str(mensaje)
+        while len(mensaje) % m != 0:
+            mensaje += "W"
+
         # Comprobar que la matriz T es correcta
-        pprint(mensaje_descifrado)
-        # self.assertEqual(str(mensaje), mensaje_descifrado)
+        self.assertEqual(mensaje, mensaje_descifrado)
 
 
 if __name__ == "__main__":

@@ -29,7 +29,9 @@ class ataqueHill:
     def ataque_hill(self):
         # Crear una lista de variables independientes
 
-        var_list = [var("x" + str(i)) for i in range(self._m * self._m)]
+        var_list = [
+            var("x" + str(i) + str(j)) for i in range(self._m) for j in range(self._m)
+        ]
 
         # Crear una matriz con las variables independientes
         T = matrix(SR, self._m, self._m, var_list)
@@ -79,7 +81,13 @@ class ataqueHill:
             solucion = [int(valor) for valor in solucion[0]]
             soluciones.append(solucion)
 
-        return soluciones
+        # Comprobar que la matriz de soluciones es regular
+        if self.__comprobar_regularidad(matrix(self._Z, soluciones)):
+            return soluciones
+        else:
+            raise ValueError(
+                "A partir del mensaje dado no se puede obtener la clave con este ataque"
+            )
 
     def __comprobar_regularidad(self, T: matrix):
         # Comprobar que la matriz T es regular
