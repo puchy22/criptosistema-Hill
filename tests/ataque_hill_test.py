@@ -18,9 +18,11 @@ class TestAtaqueHill(unittest.TestCase):
         alfabeto = Alfabeto()
 
         # Crear mensaje
-        mensaje = Mensaje("Esto es un mensaje altamente secreto")
+        mensaje = Mensaje(
+            "Esto es un mensaje altamente secreto. Cuanto más largo sea el mensaje, más fácil será descifrarlo, para m mayores, si no podemos encontrarnos con demasiados errores por falta de matrices."
+        )
 
-        m = 4
+        m = 5
 
         # Crear criptosistema de Hill
         hill = Hill(m, alfabeto)
